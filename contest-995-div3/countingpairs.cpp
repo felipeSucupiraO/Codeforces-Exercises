@@ -13,7 +13,7 @@ int main() {
         totalSum += num;
         array.push_back(num);
     }
-    qsort(array)
+    sort(array.begin(), array.end());
 
     int pntLeft = 0;
     int pntRight = arrayLength - 1;
@@ -21,13 +21,23 @@ int main() {
 
     int numPossiblePairs = 0;
     int currSum;
-    for (int i = 0; i < arrayLength; i++) {
+    while (pntLeft < pntRight) {
         currSum = totalSum - array[pntLeft] - array[pntRight];
-        if (currSum > minSum && currSum < maxSum) {
-            numPossiblePairs
+        if (currSum >= minSum && currSum <= maxSum) {
+            numPossiblePairs++;
+            if (currSum >= avarageSum) {
+                pntLeft++;
+            } else {
+                pntRight--;
+            }
+        } else if (currSum < minSum) {
+            pntRight--;
+        } else if (currSum > maxSum) {
+            pntLeft++;
         }
     }
 
+    cout << numPossiblePairs << "\n";
 
     return 0;
 
